@@ -26,13 +26,13 @@ class MinimalBio {
 
     async loadDiscordProfile() {
         try {
-            // Use BotGhost API
-            const proxyUrl = 'https://api.allorigins.win/raw?url=';
+            // Use CORS proxy
             const targetUrl = `https://dashboard.botghost.com/api/public/tools/user_lookup/${this.discordUserId}`;
+            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
             
             console.log('Fetching from BotGhost API...');
             
-            const response = await fetch(proxyUrl + encodeURIComponent(targetUrl));
+            const response = await fetch(proxyUrl);
             
             if (response.ok) {
                 const data = await response.json();
