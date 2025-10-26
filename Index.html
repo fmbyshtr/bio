@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-icon" id="profileIcon">
+                <img id="profileAvatar" src="" alt="Profile Avatar" style="display: none;">
+                <span class="initial" id="profileInitial">?</span>
+            </div>
+            <div class="profile-info">
+                <h1 class="name" id="discordUsername">Loading...</h1>
+                <div class="status-indicator" id="statusIndicator">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span class="status-text" id="statusText">Loading...</span>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="stat">
+                    <i class="fas fa-hashtag"></i>
+                    <span id="discordDiscriminator">Loading...</span>
+                </div>
+            </div>
+            
+            
+            <!-- Contact Links -->
+            <div class="contact">
+                <button class="contact-link" id="discordButton">
+                    <i class="fab fa-discord"></i>
+                    <span id="discordButtonText">Loading...</span>
+                </button>
+                <button class="contact-link" id="refreshButton" title="Refresh Discord Data">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Background Elements -->
+        <div class="background">
+            <div class="gradient-orb gradient-orb-1"></div>
+            <div class="gradient-orb gradient-orb-2"></div>
+            <div class="gradient-orb gradient-orb-3"></div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+            <a href="https://larp.bio/" target="_blank" rel="noopener noreferrer">
+                <span class="brand-text">larp</span><span class="brand-dot">.</span><span class="brand-text">bio</span>
+            </a>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
