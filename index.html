@@ -12,6 +12,7 @@
     <div class="container">
         <!-- Profile Card -->
         <div class="profile-card">
+            <div class="profile-card-mouse-track"></div>
             <div class="profile-icon" id="profileIcon">
                 <img id="profileAvatar" src="" alt="Profile Avatar" style="display: none;">
                 <span class="initial" id="profileInitial">?</span>
@@ -49,6 +50,9 @@
             <div class="gradient-orb gradient-orb-2"></div>
             <div class="gradient-orb gradient-orb-3"></div>
         </div>
+        
+        <!-- Floating Particles -->
+        <div class="particles" id="particles"></div>
 
         <!-- Copyright -->
         <div class="copyright">
@@ -108,6 +112,23 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- Snake Game Easter Egg -->
+    <div id="snakeGame" class="snake-game hidden">
+        <div class="snake-overlay">
+            <div class="snake-container">
+                <div class="snake-header">
+                    <h2>Snake</h2>
+                    <button class="snake-close" id="snakeClose">&times;</button>
+                </div>
+                <canvas id="snakeCanvas" width="400" height="400"></canvas>
+                <div class="snake-info">
+                    <div class="snake-score">Score: <span id="snakeScore">0</span></div>
+                    <div class="snake-instructions">Use arrow keys to play</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
