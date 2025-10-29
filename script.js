@@ -50,11 +50,11 @@ class MinimalBio {
             created_at: HARDCODED_CREATED_AT || new Date().toISOString()
         };
 
-        console.log('Discord data loaded from hardcoded values:', this.discordData);
+        console.log('Discord data loaded from values:', this.discordData);
         this.updateProfileDisplay();
-        this.showNotification('Discord profile loaded (hardcoded)', 'success');
+        this.showNotification('Discord profile loaded', 'success');
     } catch (error) {
-        console.error('Error loading Discord profile (hardcoded):', error);
+        console.error('Error loading Discord profile:', error);
         this.showNotification('Failed to load Discord data', 'error');
         this.setFallbackData();
     }
