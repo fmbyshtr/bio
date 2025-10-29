@@ -25,48 +25,41 @@ class MinimalBio {
     }
 
     async loadDiscordProfile() {
-        try {
-            // Use CORS proxy
-            const targetUrl = `https://dashboard.botghost.com/api/public/tools/user_lookup/${this.discordUserId}`;
-            const proxyUrl = `https://api.cors.lol/?url=${encodeURIComponent(targetUrl)}`;
-            
-            console.log('Fetching from BotGhost API...');
-            
-            const response = await fetch(proxyUrl);
-            
-            if (response.ok) {
-                const data = await response.json();
-                
-                if (data.success === false) {
-                    throw new Error(data.error?.message || 'API returned error');
-                }
-                
-                if (!data.username || !data.id) {
-                    throw new Error('Invalid Discord data received');
-                }
-                
-                this.discordData = {
-                    username: data.username,
-                    discriminator: data.discriminator || '0',
-                    id: data.id,
-                    avatar: data.avatar,
-                    global_name: data.global_name,
-                    public_flags: data.public_flags || 0,
-                    created_at: data.created_at || new Date().toISOString()
-                };
-                
-                console.log('Discord data loaded from BotGhost API:', this.discordData);
-                this.updateProfileDisplay();
-                this.showNotification('Discord profile loaded!', 'success');
-            } else {
-                throw new Error(`API error: ${response.status}`);
-            }
-        } catch (error) {
-            console.error('Error loading Discord profile:', error);
-            this.showNotification('Failed to load Discord data', 'error');
-            this.setFallbackData();
-        }
+    try {
+        // ---------- HARDCODED PROFILE (edit these values) ----------
+        const HARDCODED_ID = this.discordUserId || '1009588950962286673';
+        const HARDCODED_USERNAME = 'mr.toilet__';        // e.g. 'cooluser'
+        const HARDCODED_DISCRIMINATOR = '0';              // '0' if no discriminator
+        const HARDCODED_GLOBAL_NAME = 'Hog Rider';     // optional display name
+        const HARDCODED_AVATAR = "https://cdn.discordapp.com/avatars/1009588950962286673/ecd165b186a410ad9fcda54d8720d794.png?size=128";                    // avatar hash (null to use initial)
+        const HARDCODED_PUBLIC_FLAGS = 0;
+        const HARDCODED_CREATED_AT = '2021-01-01T00:00:00.000Z';
+        // -----------------------------------------------------------
+
+        // Simulate small delay so UI behaves like a real fetch (optional)
+        await new Promise(resolve => setTimeout(resolve, 120));
+
+        // Build discordData using the same shape your app expects
+        this.discordData = {
+            username: HARDCODED_USERNAME,
+            discriminator: HARDCODED_DISCRIMINATOR || '0',
+            id: HARDCODED_ID,
+            avatar: HARDCODED_AVATAR,
+            global_name: HARDCODED_GLOBAL_NAME,
+            public_flags: HARDCODED_PUBLIC_FLAGS || 0,
+            created_at: HARDCODED_CREATED_AT || new Date().toISOString()
+        };
+
+        console.log('Discord data loaded from hardcoded values:', this.discordData);
+        this.updateProfileDisplay();
+        this.showNotification('Discord profile loaded (hardcoded)', 'success');
+    } catch (error) {
+        console.error('Error loading Discord profile (hardcoded):', error);
+        this.showNotification('Failed to load Discord data', 'error');
+        this.setFallbackData();
     }
+}
+
 
 
     updateProfileDisplay() {
@@ -106,27 +99,36 @@ class MinimalBio {
     }
 
     updateProfilePicture() {
-        const avatarImg = document.getElementById('profileAvatar');
-        const initialSpan = document.getElementById('profileInitial');
-        
-        if (this.discordData.avatar) {
-            // Construct Discord CDN URL for avatar
-            const avatarUrl = `https://cdn.discordapp.com/avatars/${this.discordData.id}/${this.discordData.avatar}.png?size=128`;
-            
-            avatarImg.src = avatarUrl;
-            avatarImg.style.display = 'block';
-            initialSpan.style.display = 'none';
-            
-            // Handle image load error
-            avatarImg.onerror = () => {
-                avatarImg.style.display = 'none';
-                initialSpan.style.display = 'block';
-            };
-        } else {
-            avatarImg.style.display = 'none';
-            initialSpan.style.display = 'block';
-        }
-    }
+		const avatarImg = document.getElementById('profileAvatar');
+		const initialSpan = document.getElementById('profileInitial');
+	
+		if (this.discordData.avatar) {
+			let avatarUrl;
+	
+			// If the avatar field already looks like a full URL, use it directly
+			if (this.discordData.avatar.startsWith('http')) {
+				avatarUrl = this.discordData.avatar;
+			} else {
+				// Otherwise, assume it's a Discord hash and build the CDN URL
+				avatarUrl = `http://cdn.discordapp.com/avatars/1009588950962286673/ecd165b186a410ad9fcda54d8720d794.png?size=128`;
+			}
+	
+			avatarImg.src = avatarUrl;
+			avatarImg.style.display = 'block';
+			initialSpan.style.display = 'none';
+	
+			// Fallback if the image fails to load
+			avatarImg.onerror = () => {
+				avatarImg.style.display = 'none';
+				initialSpan.style.display = 'block';
+			};
+		} else {
+			// No avatar provided — use initial letter fallback
+			avatarImg.style.display = 'none';
+			initialSpan.style.display = 'block';
+		}
+}
+
 
 
     setFallbackData() {
