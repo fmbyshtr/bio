@@ -28,7 +28,7 @@ class MinimalBio {
         try {
             // Use CORS proxy
             const targetUrl = `https://dashboard.botghost.com/api/public/tools/user_lookup/${this.discordUserId}`;
-            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+            const proxyUrl = `https://api.cors.lol/?url=${encodeURIComponent(targetUrl)}`;
             
             console.log('Fetching from BotGhost API...');
             
